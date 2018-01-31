@@ -27,18 +27,15 @@ export default class App extends React.Component {
       ];
       for (var a=[],i=0;i<20;++i) a[i]=i;
       a = this.shuffle(a);
-<<<<<<< HEAD
       var preGreeting;
       if(coundown() > 0){
         preGreeting = "在春节即将来临之际， ";
       }else{
         preGreeting = "在新春时节， ";
       }
-      return preGreeting + this.state.senderName + "祝" + this.state.receviverName + phrases[a[0]] + phrases[a[1]] + phrases[a[2]] + phrases[a[3]] + phrases[a[4]]
-=======
       var greeting = this.state.senderName + "祝" + this.state.receviverName + phrases[a[0]] + phrases[a[1]] + phrases[a[2]]
       this.setState({greeting});
->>>>>>> working
+
     };
 
     coundown(){
