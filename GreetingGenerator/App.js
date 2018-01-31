@@ -19,10 +19,20 @@ export default class App extends React.Component {
     this.baseState = this.state
     };
     getGreeting(){
-      var phrases = ["万事如意","恭喜发财","财源滚滚","一帆风顺", "岁岁平安"];
-      for (var a=[],i=0;i<4;++i) a[i]=i;
+      var phrases = [ "万事如意","恭喜发财","财源滚滚","一帆风顺", "岁岁平安", "财运亨通","五福临门"
+                    , "福星高照","龙马精神","神采奕奕","步步高升", "四季平安", "合家欢乐","年年有余"
+                    , "春风得意，大展鸿图","家兴，国兴，事事兴。家圆，国圆，事事圆。","恭祝您的事业蒸蒸日上,新年更有新气象!"
+                    ,"福气多多", "万福重叠福星高照", "新春如意","开春大吉","心想事成"
+      ];
+      for (var a=[],i=0;i<20;++i) a[i]=i;
       a = this.shuffle(a);
-      return this.state.senderName + "祝" + this.state.receviverName + phrases[a[0]] + phrases[a[1]] + phrases[a[2]]
+      var preGreeting;
+      if(coundown() > 0){
+        preGreeting = "在春节即将来临之际， ";
+      }else{
+        preGreeting = "在新春时节， ";
+      }
+      return preGreeting + this.state.senderName + "祝" + this.state.receviverName + phrases[a[0]] + phrases[a[1]] + phrases[a[2]] + phrases[a[3]] + phrases[a[4]]
     };
 
     coundown(){
