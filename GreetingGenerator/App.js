@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView, Clipboard } from 'react-native';
 import {
   AdMobBanner,
   AdMobInterstitial,
@@ -15,6 +15,7 @@ export default class App extends React.Component {
       isAdOpen: false,
       senderName: "输入寄信人名字",
       receviverName: "输入收信人名字",
+      greeting:""
       };
     this.baseState = this.state
     };
@@ -26,6 +27,7 @@ export default class App extends React.Component {
       ];
       for (var a=[],i=0;i<20;++i) a[i]=i;
       a = this.shuffle(a);
+<<<<<<< HEAD
       var preGreeting;
       if(coundown() > 0){
         preGreeting = "在春节即将来临之际， ";
@@ -33,6 +35,10 @@ export default class App extends React.Component {
         preGreeting = "在新春时节， ";
       }
       return preGreeting + this.state.senderName + "祝" + this.state.receviverName + phrases[a[0]] + phrases[a[1]] + phrases[a[2]] + phrases[a[3]] + phrases[a[4]]
+=======
+      var greeting = this.state.senderName + "祝" + this.state.receviverName + phrases[a[0]] + phrases[a[1]] + phrases[a[2]]
+      this.setState({greeting});
+>>>>>>> working
     };
 
     coundown(){
@@ -62,6 +68,11 @@ export default class App extends React.Component {
       }
       return array;
     }
+
+    writeToClipboard = async () => {
+      await Clipboard.setString(this.state.greeting);
+      alert('复制成功!');
+    };
   render() {
     return (
       <ScrollView style={styles.container}>
@@ -93,18 +104,23 @@ export default class App extends React.Component {
                   this.senderTextInput.clear();
                   this.receiverTextInput.clear();
                 }}
-                title="Reset" /> 
+                title="清空，再次制作新贺词" /> 
                 : <Button
                   onPress={() => {
                   AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/1033173712'); // Test ID, Replace with your-admob-unit-id
                   AdMobRewarded.setTestDeviceID('EMULATOR');
-                  AdMobRewarded.requestAd(() => AdMobRewarded.showAd(() => this.setState({isAdOpen:true})));
+                  AdMobRewarded.requestAd(() => AdMobRewarded.showAd(() =>{this.setState({isAdOpen:true}); this.getGreeting();} ));
                   }}
                   title="获得专属贺词"
                   />
                 }
-             {this.state.isAdOpen ? <Text style={styles.textview} >{this.getGreeting()}</Text> : null}
+             {this.state.isAdOpen ? <Text style={styles.textview} >{this.state.greeting}</Text> : null}
           </View>
+          {this.state.isAdOpen ?
+          <View>
+            <Button onPress={()=>this.writeToClipboard()} title="复制"/>
+          </View>
+          : null}
       </ScrollView>
     );
   }
