@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView, Clipboard } from 'react-native';
+import { StyleSheet, Text, View, Alert, TextInput, ScrollView, Clipboard } from 'react-native';
+import { Button } from 'react-native-elements';
 import {
   AdMobBanner,
   AdMobInterstitial,
@@ -22,18 +23,18 @@ export default class App extends React.Component {
     getGreeting(){
       var phrases = [ "万事如意","恭喜发财","财源滚滚","一帆风顺", "岁岁平安", "财运亨通","五福临门"
                     , "福星高照","龙马精神","神采奕奕","步步高升", "四季平安", "合家欢乐","年年有余"
-                    , "春风得意，大展鸿图","家兴，国兴，事事兴。家圆，国圆，事事圆。","恭祝您的事业蒸蒸日上,新年更有新气象!"
+                    , "春风得意，大展鸿图","家兴，国兴，事事兴， 家圆，国圆，事事圆","恭祝您的事业蒸蒸日上,新年更有新气象"
                     ,"福气多多", "万福重叠福星高照", "新春如意","开春大吉","心想事成"
       ];
       for (var a=[],i=0;i<20;++i) a[i]=i;
       a = this.shuffle(a);
       var preGreeting;
-      if(coundown() > 0){
-        preGreeting = "在春节即将来临之际， ";
+      if(this.coundown() > 0){
+        preGreeting = "在春节即将来临之际, ";
       }else{
         preGreeting = "在新春时节， ";
       }
-      var greeting = this.state.senderName + "祝" + this.state.receviverName + phrases[a[0]] + phrases[a[1]] + phrases[a[2]]
+      var greeting = preGreeting + this.state.senderName + "祝" + this.state.receviverName +","+ phrases[a[0]]+","+ phrases[a[1]] +","+ phrases[a[2]] +","+ phrases[a[3]] +","+ phrases[a[4]] +","+ phrases[a[5]]+ "！"
       this.setState({greeting});
 
     };
@@ -96,6 +97,10 @@ export default class App extends React.Component {
           </View>
           <View>
               {this.state.isAdOpen ? <Button
+                raised
+                buttonStyle={styles.buttonStyle}
+                icon={{name: 'cached'}}
+                color="#841584"
                 onPress={() => {
                   this.setState(this.baseState);
                   this.senderTextInput.clear();
@@ -103,6 +108,8 @@ export default class App extends React.Component {
                 }}
                 title="清空，再次制作新贺词" /> 
                 : <Button
+                  buttonStyle={styles.buttonStyle}
+                  color="#841584"
                   onPress={() => {
                   AdMobRewarded.setAdUnitID('ca-app-pub-3940256099942544/1033173712'); // Test ID, Replace with your-admob-unit-id
                   AdMobRewarded.setTestDeviceID('EMULATOR');
@@ -126,7 +133,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 40,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#ce3b3b',
     
   },
   textview:{
@@ -138,5 +145,9 @@ const styles = StyleSheet.create({
   },
   text:{
     width:300
+  },
+  buttonStyle:{
+    backgroundColor:'yellow'
+    
   }
   });
